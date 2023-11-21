@@ -15,6 +15,9 @@ public class Paypal implements Payment{
 	}
 
 	@Override
+	/**
+	 * This is not supported for now
+	 */
 	public void processPayment(double price) {
 		// TODO Auto-generated method stub
 		

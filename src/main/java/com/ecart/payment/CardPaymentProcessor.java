@@ -23,6 +23,7 @@ public class CardPaymentProcessor implements Payment{
 	@Override
 	public void processPayment(double total) {
 		// TODO Auto-generated method stub
+		System.out.println("Processed payment of:"+ total+ " using credit card.");
 		
 	}
 

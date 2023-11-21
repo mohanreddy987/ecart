@@ -10,6 +10,7 @@ Install the JAVA17 and add it to JAVA_HOME in your system environment variables.
 Download STS from https://github.com/spring-attic/toolsuite-distribution/wiki/Spring-Tool-Suite-3 
 
 ### Importing the project into STS
+Clone this repository git@github.com:mohanreddy987/ecart.git
 Open the STS and import the cloned project or this project into it.
 
 ### Running the application

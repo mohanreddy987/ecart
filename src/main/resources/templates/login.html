@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My E-Commerce Store</title>
+<!-- Bootstrap CSS (Add the correct path or use CDN) -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}">
+<!-- Your custom styles -->
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+<link th:href="@{/styles/login.css}" rel="stylesheet" />
+<script th:src="@{/js/Application.js}" defer></script>
+
+<!-- Bootstrap JS (Add the correct path or use CDN) -->
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+<script th:if="${message!=null}" th:inline="javascript">
+        /*<![CDATA[*/
+        // Thymeleaf inline JavaScript
+        	alert([[${message}]]);
+        /*]]>*/
+    </script>
+</head>
+
+<body>
+
+	<header class="bg-dark text-white text-center py-4">
+		<h1>Welcome to E-cart</h1>
+		<p>Discover, Explore, Shop All</p>
+	</header>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="/welcome">Home</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+
+	<section class="container my-4">
+		<!-- Product Cards -->
+		<div class="row">
+			<div class="form-modal">
+
+				<div class="form-toggle">
+					<button id="login-toggle" onclick="toggleLogin()">log in</button>
+					<button id="signup-toggle" onclick="toggleSignup()">sign
+						up</button>
+				</div>
+
+				<div id="login-form">
+
+					<form action="/login" method="post" th:object="${user}">
+						<input type="text" th:field="*{email}"
+							placeholder="Enter email or username" /> <input type="password"
+							th:field="*{password}" placeholder="Enter password" />
+						<button type="submit" class="btn login">login</button>
+						<p>
+							<a href="javascript:void(0)">Forgotten account</a>
+						</p>
+						<hr />
+					</form>
+				</div>
+
+				<div id="signup-form">
+					<form action="/registration" method="post" th:object="${user}">
+						<input type="text" th:field="*{first_name}"
+							placeholder="Enter first name" required /> <input type="text"
+							th:field="*{last_name}" placeholder="Enter Last name" required />
+						<input type="email" th:field="*{email}"
+							placeholder="Enter your email" required /> <input
+							type="password" th:field="*{password}"
+							placeholder="Create password" required /> <input type="text"
+							th:field="*{phone_number}" placeholder="Enter Phone Number"
+							required />
+						<button type="submit" class="btn signup">create account</button>
+						<p>
+							Clicking <strong>create account</strong> means that you are agree
+							to our <a href="javascript:void(0)">terms of services</a>.
+						</p>
+						<hr />
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<footer class="bg-dark text-white text-center py-3">
+		<p>&copy; 2023 My E-Commerce Store. All rights reserved.</p>
+	</footer>
+</body>
+
+</html>

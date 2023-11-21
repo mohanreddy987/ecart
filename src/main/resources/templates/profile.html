@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My E-Commerce Store</title>
+<!-- Bootstrap CSS (Add the correct path or use CDN) -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}">
+<!-- Your custom styles -->
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+<!-- Bootstrap JS (Add the correct path or use CDN) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/Application.js}" defer></script>
+</head>
+
+<body>
+
+	<header class="bg-dark text-white text-center py-4">
+		<h1>
+			Welcome to E-cart <span th:if="${#ctx.session.user}!=null"
+				th:text="${#ctx.session.user.first_name}"></span>
+		</h1>
+		<p>Discover, Explore, Shop All</p>
+	</header>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="/welcome">Home</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a th:if="${#ctx.session.email != null}"
+						class="nav-link" href="/profile"> <i class="bi bi-person"></i>
+							My Profile
+					</a></li>
+					<li th:if="${#ctx.session.user != null}" class="nav-item"><a
+						class="nav-link" href="/cart"> <i class="bi bi-person"></i>
+							Cart
+					</a></li>
+
+					<li th:if="${#ctx.session.user != null}" class="nav-item"><a
+						class="nav-link" href="/Logout"> <i class="bi bi-person"></i>
+							Logout
+					</a></li>
+					<li th:if="${#ctx.session.user  == null}" class="nav-item"><a
+						class="nav-link" href="/login"> <i class="bi bi-cart"></i>
+							Login
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section class="container my-3">
+		<div class="container mt-5">
+			<h2>Your profile</h2>
+			<p>
+				First Name: <span th:text="${#ctx.session.user.first_name}">
+			</p>
+			<p>
+				Last Name: <span th:text="${#ctx.session.user.Last_name}">
+			</p>
+			<p>
+				Email: <span th:text="${#ctx.session.user.email}">
+			</p>
+		</div>
+		
+		<div class="container mt-5">
+		<table class="table table-bordered cart">
+			<thead class="thead-dark">
+				<tr>
+					<th>Order Id</th>
+					<th>Total</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Assuming your JSON-like structure is stored in a variable called 'product' -->
+				<tr th:each="order : ${orders}">
+					<!-- Accessing the ID -->
+					<!-- Accessing the quantity and name from the nested structure -->
+					<td th:text="${order.orderId}"></td>
+					<td th:text="${order.totalAmount}"></td>
+					<td th:text="${order.status}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+		
+
+	</section>
+
+	<footer class="bg-dark text-white text-center py-3">
+		<p>&copy; 2023 My E-Commerce Store. All rights reserved.</p>
+	</footer>
+</body>
+
+</html>

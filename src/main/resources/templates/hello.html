@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My E-Commerce Store</title>
+<!-- Bootstrap CSS (Add the correct path or use CDN) -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}">
+<!-- Your custom styles -->
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+<!-- Bootstrap JS (Add the correct path or use CDN) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/Application.js}" defer></script>
+
+<script th:if="${message!=null}" th:inline="javascript">
+        /*<![CDATA[*/
+        // Thymeleaf inline JavaScript
+        	alert([[${message}]]);
+        /*]]>*/
+    </script>
+</head>
+
+<body>
+
+	<header class="bg-dark text-white text-center py-4">
+		<h1>
+			Welcome to E-cart <span th:if="${#ctx.session.user}!=null"
+				th:text="${#ctx.session.user.first_name}"></span>
+		</h1>
+		<p>Discover, Explore, Shop All</p>
+	</header>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="/welcome">Home</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a th:if="${#ctx.session.email != null}"
+						class="nav-link" href="/profile"> <i class="bi bi-person"></i>
+							My Profile
+					</a></li>
+					<li th:if="${#ctx.session.user != null}" class="nav-item"><a
+						class="nav-link" href="/cart"> <i class="bi bi-person"></i>
+							Cart
+					</a></li>
+
+					<li th:if="${#ctx.session.user != null}" class="nav-item"><a
+						class="nav-link" href="/Logout"> <i class="bi bi-person"></i>
+							Logout
+					</a></li>
+					<li th:if="${#ctx.session.user  == null}" class="nav-item"><a
+						class="nav-link" href="/login"> <i class="bi bi-cart"></i>
+							Login
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section class="container my-3">
+		<!-- Product Cards -->
+		<div th:each="entry : ${catalog.entrySet()}">
+			<h2 th:text="${entry.key}"></h2>
+			<div class="row">
+				<div th:each="product : ${entry.value}" class="col-md-3 mb-3">
+					<div class="card">
+						<img th:src="@{'/Assets/Images/'+${product.imageName}}"
+							class="card-img-top" style="height: 220px;" alt="Product Image">
+						<div class="card-body">
+
+							<h5 th:text="${product.name}" class="card-title"></h5>
+							<p th:text="${product.description}"></p>
+							<p th:text="'Price: $' + ${product.price}"></p>
+
+							<button th:if="${#ctx.session.email == null}"
+								th:onclick="window.location.href='/login'"
+								class="btn btn-primary">Add to Cart</button>
+
+							<button th:if="${#ctx.session.email != null}" th:onclick="'addItemTocart(' + ${product.id} + ')'"
+								class="btn btn-primary">Add to Cart</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</section>
+
+	<footer class="bg-dark text-white text-center py-3">
+		<p>&copy; 2023 My E-Commerce Store. All rights reserved.</p>
+	</footer>
+</body>
+
+</html>
